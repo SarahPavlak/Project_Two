@@ -21,6 +21,10 @@ def bath():
     bath_value=[l2.get(i) for i in l2.curselection()]
     print(bath_value)
 
+def apartment():
+    apartment_value=[l4.get(i) for i in l4.curselection()]
+    print(apartment_value)
+
 def budget():
     budget_value=[l3.get(i) for i in l3.curselection()]
     print(budget_value)
@@ -31,7 +35,34 @@ w1.title('Apartment Selection App')
 l1= Listbox(w1, selectmode= MULTIPLE, width= 20)
 l2= Listbox(w1, selectmode= MULTIPLE, width= 20)
 l3= Entry(width= 20)
+l4= Listbox(w1, selectmode= MULTIPLE, width= 20)
 
+
+#Apartment Selection-------------------------------------------------------
+T = Text(w1, height=2, width=30)
+T.pack()
+T.insert(END, "Please select your apartment: ")
+
+Apartment_Buildings = [
+    {"id":1, "name": "avalon-ballston-square", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"},
+    {"id":2, "name": "ava-ballston", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/ava-ballston/floor-plans"}
+    #to add more apartments within Avalon family
+]
+
+l = []
+for p in Apartment_Buildings:
+   l.append(p["name"])
+
+Apartment_Buildings = list(set(l))
+Apartment_Buildings = sorted(Apartment_Buildings)
+
+Apartment= [Apartment_Buildings]
+for val in Apartment:
+    l4.insert(END, val)
+l4.pack()
+
+b5=Button(text= 'Select', command=apartment)
+b5.pack()
 
 #Bedroom Selection-------------------------------------------------------
 T = Text(w1, height=2, width=30)
@@ -84,5 +115,12 @@ print("User response was:")
 #to insert user response
 
 print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
+
+#Select Avalon Apartments--------------------------------------------------
+
+
+
+
+
 
 
