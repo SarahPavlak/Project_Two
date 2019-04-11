@@ -13,18 +13,19 @@ print("To start, please input your apartment preferences")
 #https://stackoverflow.com/questions/41211060/how-to-add-scrollbar-to-tkinter
 
 
+#App set-up----------------------------------------------------------------
+def apartment():
+    apartment_value=[l4.get(i) for i in l4.curselection()]
+    print("You have selected: ")
+    print(apartment_value)
+    
 def bed():
     bed_value=[l1.get(i) for i in l1.curselection()]
-    print("You have selected: ")
     print(bed_value)
 
 def bath():
     bath_value=[l2.get(i) for i in l2.curselection()]
     print(bath_value)
-
-def apartment():
-    apartment_value=[l4.get(i) for i in l4.curselection()]
-    print(apartment_value)
 
 def budget():
     budget_value=[l3.get(i) for i in l3.curselection()]
@@ -33,12 +34,10 @@ def budget():
 w1= Tk()
 w1.title('Apartment Selection App')
 
-
-l1= Listbox(w1, selectmode= MULTIPLE, height= 10, width= 20)
-l2= Listbox(w1, selectmode= MULTIPLE, height=10, width= 20)
+l1= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
+l2= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
 l3= Entry(w1, width= 20)
-l4= Listbox(w1, selectmode= MULTIPLE, height=10, width= 20)
-
+l4= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
 
 #Apartment Selection-------------------------------------------------------
 T = Text(w1, height=1, width=30)
@@ -58,10 +57,11 @@ for p in Apartment_Buildings:
 Apartment_Buildings = list(set(l))
 Apartment_Buildings = sorted(Apartment_Buildings)
 
-Apartment= ['avalon-ballston-square','ava-ballston'] #to connect to list
+Apartment= ['avalon-ballston-square','ava-ballston'] 
 for val in Apartment:
     l4.insert(END, val)
 l4.pack()
+
 
 b5=Button(text= 'Select', command=apartment)
 b5.pack()
@@ -69,7 +69,7 @@ b5.pack()
 #Bedroom Selection-------------------------------------------------------
 T = Text(w1, height=2, width=30)
 T.pack()
-T.insert(END, "Please select your desired number of bedrooms: ")
+T.insert(END, "Please select your desired \n number of bedrooms: ")
 
 bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
 for val in bedroom:
@@ -82,7 +82,7 @@ b1.pack()
 #Bathroom Selection-------------------------------------------------------
 T = Text(w1, height=2, width=30)
 T.pack()
-T.insert(END, "Please select your desired number of bathrooms: ")
+T.insert(END, "Please select your desired \n number of bathrooms: ")
 
 bathroom= ['One bathroom', 'Two Bathrooms', 'More than Two Bathrooms']
 for val in bathroom:
@@ -118,34 +118,16 @@ print("User response was:")
 
 print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
 
+
+
 #Scraping the Website--------------------------------------------------
 
 
 
 
-
-budget = [0]
-for val in budget:
-    l3.insert(END, val)
-l3.pack()
-
-b3=Button(text='Select', command=budget)
-b3.pack()
-
-#Quit Button-----------------------------------------------------------
-b4 = Button(w1, text='Quit', command=w1.quit)
-b4.pack()
-
-w1.mainloop()
-breakpoint
-
-t = datetime.datetime.now()
-print("User response was:")
-#to insert user response
-
-print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
-
-#Select Avalon Apartments--------------------------------------------------
+#todo:
+#connect avalon list to original list
+#validate tkinter inputs
 
 
 
