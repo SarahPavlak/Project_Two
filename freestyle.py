@@ -121,9 +121,9 @@ if user_input in y:
     t = datetime.datetime.now()
     print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
     print("---------------------------------------")
-    w1.mainloop()
 else:
     print("Please change your desired inputs and press 'Done'.")
+    w1.mainloop()
      
 w1.mainloop()
 
@@ -131,9 +131,4 @@ w1.mainloop()
 
 
 #Scraping the Website--------------------------------------------------
-
-
-
-
-
 
