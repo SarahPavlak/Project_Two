@@ -4,7 +4,6 @@ import datetime
 
 
 print("To start, please input your apartment preferences.")
-
 #TNKTR USERINPUTS----------------------------------------------------------
 #https://github.com/s2t2/shopping-cart-project/blob/master/shopping_cart.py
 #!/usr/bin/python3
@@ -12,11 +11,10 @@ print("To start, please input your apartment preferences.")
 #https://www.python-course.eu/tkinter_text_widget.php
 #https://stackoverflow.com/questions/41211060/how-to-add-scrollbar-to-tkinter
 
-
 #App set-up----------------------------------------------------------------
 def apartment():
     apartment_value=[l4.get(i) for i in l4.curselection()]
-    print("--------------------------------------------")
+    print("---------------------------------------")
     print("You have selected: ")
     print(apartment_value)
     
@@ -121,14 +119,31 @@ if user_input in y:
     t = datetime.datetime.now()
     print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
     print("---------------------------------------")
+    exit
 else:
     print("Please change your desired inputs and press 'Done'.")
+    print("---------------------------------------")
     w1.mainloop()
-     
-w1.mainloop()
+
+
+breakpoint
 
 #User Inputs Collected------------------------------------------------
 
 
+
+
+
 #Scraping the Website--------------------------------------------------
+
+
+
+
+#todo:
+#tk:
+#connect avalon list to original list
+#validate tkinter inputs/make sure at least one is selected
+#tto confirm correct under budget
+
+
 
