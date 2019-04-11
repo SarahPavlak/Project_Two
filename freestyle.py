@@ -3,7 +3,7 @@ from tkinter import *
 import datetime
 
 
-print("To start, please input your apartment preferences")
+print("To start, please input your apartment preferences.")
 
 #TNKTR USERINPUTS----------------------------------------------------------
 #https://github.com/s2t2/shopping-cart-project/blob/master/shopping_cart.py
@@ -16,6 +16,7 @@ print("To start, please input your apartment preferences")
 #App set-up----------------------------------------------------------------
 def apartment():
     apartment_value=[l4.get(i) for i in l4.curselection()]
+    print("--------------------------------------------")
     print("You have selected: ")
     print(apartment_value)
     
@@ -26,11 +27,11 @@ def bed():
 def bath():
     bath_value=[l2.get(i) for i in l2.curselection()]
     print(bath_value)
-
+      
 def budget():
     budget_value=[l3.get(i) for i in l3.curselection()]
     print(budget_value)
-
+    
 w1= Tk()
 w1.title('Apartment Selection App')
 
@@ -93,9 +94,9 @@ b2=Button(text= 'Select', command=bath)
 b2.pack()
 
 #Budget Selection-------------------------------------------------------
-T = Text(w1, height=1, width=30)
+T = Text(w1, height=2, width=30)
 T.pack()
-T.insert(END, "Please input your budget: ")
+T.insert(END, "Please input your \n monthly budget: ")
 
 budget = [0]
 for val in budget:
@@ -106,29 +107,30 @@ b3=Button(text='Select', command=budget)
 b3.pack()
 
 #Quit Button-----------------------------------------------------------
-b4 = Button(w1, text='Quit', command=w1.quit)
+
+b4 = Button(w1, text='Done', command=w1.quit)
 b4.pack()
 
 w1.mainloop()
-breakpoint
 
-t = datetime.datetime.now()
-print("User response was:")
-#to insert user response
+print("---------------------------------------")
+user_input = input("Are these values correct? ")
+y = ["Yes","yes","YES"]
+if user_input in y:
+    print ("Great, we will save your inputs!")
+    t = datetime.datetime.now()
+    print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
+    print("---------------------------------------")
+    w1.mainloop()
+else:
+    print("Please change your desired inputs and press 'Done'.")
+     
+w1.mainloop()
 
-print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
-
+#User Inputs Collected------------------------------------------------
 
 
 #Scraping the Website--------------------------------------------------
-
-
-
-
-#todo:
-#connect avalon list to original list
-#validate tkinter inputs
-
 
 
 
