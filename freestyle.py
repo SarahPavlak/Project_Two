@@ -10,6 +10,7 @@ print("To start, please input your apartment preferences")
 #!/usr/bin/python3
 #https://www.python-course.eu/tkinter_entry_widgets.php
 #https://www.python-course.eu/tkinter_text_widget.php
+#https://stackoverflow.com/questions/41211060/how-to-add-scrollbar-to-tkinter
 
 
 def bed():
@@ -32,14 +33,15 @@ def budget():
 w1= Tk()
 w1.title('Apartment Selection App')
 
-l1= Listbox(w1, selectmode= MULTIPLE, width= 20)
-l2= Listbox(w1, selectmode= MULTIPLE, width= 20)
-l3= Entry(width= 20)
-l4= Listbox(w1, selectmode= MULTIPLE, width= 20)
+
+l1= Listbox(w1, selectmode= MULTIPLE, height= 10, width= 20)
+l2= Listbox(w1, selectmode= MULTIPLE, height=10, width= 20)
+l3= Entry(w1, width= 20)
+l4= Listbox(w1, selectmode= MULTIPLE, height=10, width= 20)
 
 
 #Apartment Selection-------------------------------------------------------
-T = Text(w1, height=2, width=30)
+T = Text(w1, height=1, width=30)
 T.pack()
 T.insert(END, "Please select your apartment: ")
 
@@ -56,7 +58,7 @@ for p in Apartment_Buildings:
 Apartment_Buildings = list(set(l))
 Apartment_Buildings = sorted(Apartment_Buildings)
 
-Apartment= [Apartment_Buildings]
+Apartment= ['avalon-ballston-square','ava-ballston'] #to connect to list
 for val in Apartment:
     l4.insert(END, val)
 l4.pack()
@@ -67,7 +69,7 @@ b5.pack()
 #Bedroom Selection-------------------------------------------------------
 T = Text(w1, height=2, width=30)
 T.pack()
-T.insert(END, "Please select your desired\n number of bedrooms: ")
+T.insert(END, "Please select your desired number of bedrooms: ")
 
 bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
 for val in bedroom:
@@ -80,7 +82,7 @@ b1.pack()
 #Bathroom Selection-------------------------------------------------------
 T = Text(w1, height=2, width=30)
 T.pack()
-T.insert(END, "Please select your desired\n number of bathrooms: ")
+T.insert(END, "Please select your desired number of bathrooms: ")
 
 bathroom= ['One bathroom', 'Two Bathrooms', 'More than Two Bathrooms']
 for val in bathroom:
@@ -91,9 +93,36 @@ b2=Button(text= 'Select', command=bath)
 b2.pack()
 
 #Budget Selection-------------------------------------------------------
-T = Text(w1, height=2, width=30)
+T = Text(w1, height=1, width=30)
 T.pack()
 T.insert(END, "Please input your budget: ")
+
+budget = [0]
+for val in budget:
+    l3.insert(END, val)
+l3.pack()
+
+b3=Button(text='Select', command=budget)
+b3.pack()
+
+#Quit Button-----------------------------------------------------------
+b4 = Button(w1, text='Quit', command=w1.quit)
+b4.pack()
+
+w1.mainloop()
+breakpoint
+
+t = datetime.datetime.now()
+print("User response was:")
+#to insert user response
+
+print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
+
+#Scraping the Website--------------------------------------------------
+
+
+
+
 
 budget = [0]
 for val in budget:
