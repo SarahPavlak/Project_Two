@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 import datetime
-
+import tkinter
 
 print("To start, please input your apartment preferences.")
 #TNKTR USERINPUTS----------------------------------------------------------
@@ -25,18 +25,22 @@ def bed():
 def bath():
     bath_value=[l2.get(i) for i in l2.curselection()]
     print(bath_value)
-      
-def budget():
-    budget_value=[l3.get(i) for i in l3.curselection()]
-    print(budget_value)
     
+def notifications():
+    notification_value=[e2.get(i) for i in e2.curselection()]
+    print(notification_value)
+
+
+
 w1= Tk()
 w1.title('Apartment Selection App')
 
 l1= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
 l2= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
-l3= Entry(w1, width= 20)
 l4= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
+l5= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
+
+
 
 #Apartment Selection-------------------------------------------------------
 T = Text(w1, height=1, width=30)
@@ -96,16 +100,46 @@ T = Text(w1, height=2, width=30)
 T.pack()
 T.insert(END, "Please input your \n monthly budget: ")
 
-budget = [0]
-for val in budget:
-    l3.insert(END, val)
-l3.pack()
+budget_value = tkinter.StringVar()
+my_budget = tkinter.Entry(textvariable=budget_value)
 
-b3=Button(text='Select', command=budget)
-b3.pack()
+def budget():
+    print(my_budget.get())
+
+my_button = tkinter.Button(text="Select", command=budget)
+my_budget.pack()
+my_button.pack()
+
+#Move-in Date Selection-------------------------------------------------------
+T = Text(w1, height=3, width=30)
+T.pack()
+T.insert(END, "Please input your \n move in date with \n the following format mm/dd/yyyy ")
+
+move_value = tkinter.StringVar()
+my_move = tkinter.Entry(textvariable=move_value)
+
+def movein():
+    print(my_move.get())
+
+my_button_two = tkinter.Button(text="Select", command=movein)
+my_move.pack()
+my_button_two.pack()
+
+
+#Notification Selection------------------------------------------------
+T = Text(w1, height=2, width=30)
+T.pack()
+T.insert(END, "Please select your desired \n notification setting: ")
+
+emails= ['One time', 'Recurring']
+for val in emails:
+    l5.insert(END, val)
+l5.pack()
+
+b6=Button(text= 'Select', command=notifications)
+b6.pack()
 
 #Quit Button-----------------------------------------------------------
-
 b4 = Button(w1, text='Done', command=w1.quit)
 b4.pack()
 
@@ -144,6 +178,3 @@ breakpoint
 #connect avalon list to original list
 #validate tkinter inputs/make sure at least one is selected
 #tto confirm correct under budget
-
-
-
