@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import *
 import datetime
 import tkinter
+from PIL import Image, ImageTk
 
 print("To start, please input your apartment preferences.")
 #TNKTR USERINPUTS----------------------------------------------------------
@@ -10,6 +11,7 @@ print("To start, please input your apartment preferences.")
 #https://www.python-course.eu/tkinter_entry_widgets.php
 #https://www.python-course.eu/tkinter_text_widget.php
 #https://stackoverflow.com/questions/41211060/how-to-add-scrollbar-to-tkinter
+#https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/99ce7522557f0a9c8690e48ac95bcce0d528b380/notes/python/packages/tkinter.md
 
 #App set-up----------------------------------------------------------------
 def apartment():
@@ -30,17 +32,24 @@ def notifications():
     notification_value=[e2.get(i) for i in e2.curselection()]
     print(notification_value)
 
-
-
 w1= Tk()
 w1.title('Apartment Selection App')
+frame = Frame(w1)
+
 
 l1= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
 l2= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
 l4= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
 l5= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
 
+#App Picture--------------------------------------------------------------
+#https://www.slideshare.net/r1chardj0n3s/tkinter-does-not-suck
+T = Text(w1, height=1, width=30)
+T.pack()
+T.insert(END, "Welcome to my application!")
 
+image = ImageTk.PhotoImage(Image.open('pic.png')), 
+tk.Label(w1, image=image).pack()
 
 #Apartment Selection-------------------------------------------------------
 T = Text(w1, height=1, width=30)
@@ -60,7 +69,7 @@ for p in Apartment_Buildings:
 Apartment_Buildings = list(set(l))
 Apartment_Buildings = sorted(Apartment_Buildings)
 
-Apartment= ['avalon-ballston-square','ava-ballston'] 
+Apartment= ['avalon-ballston-square','ava-ballston'] #to connect to name on different lines
 for val in Apartment:
     l4.insert(END, val)
 l4.pack()
@@ -174,7 +183,5 @@ breakpoint
 
 
 #todo:
-#tk:
 #connect avalon list to original list
 #validate tkinter inputs/make sure at least one is selected
-#tto confirm correct under budget
