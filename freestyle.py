@@ -3,6 +3,12 @@ from tkinter import *
 import datetime
 import tkinter
 from PIL import Image, ImageTk
+import os
+import pprint
+from dotenv import load_dotenv
+import sendgrid
+from sendgrid.helpers.mail import * 
+
 
 print("To start, please input your apartment preferences.")
 #TNKTR USERINPUTS----------------------------------------------------------
@@ -31,8 +37,44 @@ def bath():
     print(bath_value)
     
 def notifications():
-    notification_value=[e2.get(i) for i in e2.curselection()]
+    notification_value=[l5.get(i) for i in l5.curselection()]
     print(notification_value)
+    if 'One time' in notification_value:
+        print("You will now receive an email to your inbox")
+               
+        load_dotenv()
+
+        SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please set env var called 'SENDGRID_API_KEY'")
+        MY_EMAIL_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS", "OOPS, please set env var called 'MY_EMAIL_ADDRESS'")
+
+        sg = sendgrid.SendGridAPIClient(apikey=SENDGRID_API_KEY)
+
+        from_email = Email(MY_EMAIL_ADDRESS)
+        to_email = Email(MY_EMAIL_ADDRESS)
+        subject = "Apartment Update!"
+        message_text = "Hello, \n\nThe following email provides an update on your desired apartments: "
+        content = Content("text/plain", message_text)
+        mail = Mail(from_email, subject, to_email, content)
+
+        response = sg.client.mail.send.post(request_body=mail.get())
+        pp = pprint.PrettyPrinter(indent=4)
+
+        print("----------------------")
+        print("EMAIL")
+        print("----------------------")
+        print("RESPONSE: ", type(response))
+        print("STATUS:", response.status_code) 
+        print("HEADERS:")
+        pp.pprint(dict(response.headers))
+        print("BODY:")
+        print(response.body)
+
+       
+
+    else:
+        print("After pressing 'Done' you will be given instructions to heroku to configure your emails")
+
+    
 
 w1= Tk()
 w1.title('Apartment Selection App')
@@ -62,8 +104,7 @@ for line in range(100):
 
     #image = ImageTk.PhotoImage(Image.open('pic.png')), 
     #tk.Label(w1, image=image).pack()
-    #to resize image
-
+ 
     #Apartment Selection-------------------------------------------------------
     T = Text(w1, height=1, width=30)
     T.pack()
@@ -92,17 +133,17 @@ for line in range(100):
     b5.pack()
 
     #Bedroom Selection-------------------------------------------------------
-    T = Text(w1, height=2, width=30)
-    T.pack()
-    T.insert(END, "Please select your desired \n number of bedrooms: ")
+    #T = Text(w1, height=2, width=30)
+    #T.pack()
+    #T.insert(END, "Please select your desired \n number of bedrooms: ")
 
-    bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
-    for val in bedroom:
-        l1.insert(END, val)
-    l1.pack()
+    #bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
+    #for val in bedroom:
+        #l1.insert(END, val)
+    #l1.pack()
 
-    b1=Button(text= 'Select', command=bed)
-    b1.pack()
+    #b1=Button(text= 'Select', command=bed)
+    #b1.pack()
 
     #Bathroom Selection-------------------------------------------------------
     T = Text(w1, height=2, width=30)
@@ -203,5 +244,5 @@ breakpoint
     #todo:
     #connect avalon list to original list
     #validate tkinter inputs/make sure at least one is selected
-
     #have to set up a scrollbar
+    #to resize image
