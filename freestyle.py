@@ -14,6 +14,8 @@ print("To start, please input your apartment preferences.")
 #https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/99ce7522557f0a9c8690e48ac95bcce0d528b380/notes/python/packages/tkinter.md
 
 #App set-up----------------------------------------------------------------
+#https://www.tutorialspoint.com/python/tk_scrollbar.htm
+
 def apartment():
     apartment_value=[l4.get(i) for i in l4.curselection()]
     print("---------------------------------------")
@@ -36,152 +38,170 @@ w1= Tk()
 w1.title('Apartment Selection App')
 frame = Frame(w1)
 
+#Configuring Scrollbar
 
-l1= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
-l2= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
-l4= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
-l5= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
+scrollbar = Scrollbar(w1)
+scrollbar.pack( side = RIGHT, fill = Y )
 
-#App Picture--------------------------------------------------------------
-#https://www.slideshare.net/r1chardj0n3s/tkinter-does-not-suck
-T = Text(w1, height=1, width=30)
-T.pack()
-T.insert(END, "Welcome to my application!")
-
-image = ImageTk.PhotoImage(Image.open('pic.png')), 
-tk.Label(w1, image=image).pack()
-
-#Apartment Selection-------------------------------------------------------
-T = Text(w1, height=1, width=30)
-T.pack()
-T.insert(END, "Please select your apartment: ")
-
-Apartment_Buildings = [
-    {"id":1, "name": "avalon-ballston-square", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"},
-    {"id":2, "name": "ava-ballston", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/ava-ballston/floor-plans"}
-    #to add more apartments within Avalon family
-]
-
-l = []
-for p in Apartment_Buildings:
-   l.append(p["name"])
-
-Apartment_Buildings = list(set(l))
-Apartment_Buildings = sorted(Apartment_Buildings)
-
-Apartment= ['avalon-ballston-square','ava-ballston'] #to connect to name on different lines
-for val in Apartment:
-    l4.insert(END, val)
-l4.pack()
+mylist = Listbox(w1, yscrollcommand = scrollbar.set )
+for line in range(100):
+    line =  0 #to put info in this scrollable section
 
 
-b5=Button(text= 'Select', command=apartment)
-b5.pack()
+    l1= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
+    l2= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
+    l4= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
+    l5= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
 
-#Bedroom Selection-------------------------------------------------------
-T = Text(w1, height=2, width=30)
-T.pack()
-T.insert(END, "Please select your desired \n number of bedrooms: ")
+    #App Picture--------------------------------------------------------------
 
-bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
-for val in bedroom:
-    l1.insert(END, val)
-l1.pack()
+    #https://www.slideshare.net/r1chardj0n3s/tkinter-does-not-suck
+    T = Text(w1, height=1, width=30)
+    T.pack()
+    T.insert(END, "Welcome to my application!")
 
-b1=Button(text= 'Select', command=bed)
-b1.pack()
+    #image = ImageTk.PhotoImage(Image.open('pic.png')), 
+    #tk.Label(w1, image=image).pack()
+    #to resize image
 
-#Bathroom Selection-------------------------------------------------------
-T = Text(w1, height=2, width=30)
-T.pack()
-T.insert(END, "Please select your desired \n number of bathrooms: ")
+    #Apartment Selection-------------------------------------------------------
+    T = Text(w1, height=1, width=30)
+    T.pack()
+    T.insert(END, "Please select your apartment: ")
 
-bathroom= ['One bathroom', 'Two Bathrooms', 'More than Two Bathrooms']
-for val in bathroom:
-    l2.insert(END, val)
-l2.pack()
+    Apartment_Buildings = [
+        {"id":1, "name": "avalon-ballston-square", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"},
+        {"id":2, "name": "ava-ballston", "URL": "https://www.avaloncommunities.com/virginia/arlington-apartments/ava-ballston/floor-plans"}
+        #to add more apartments within Avalon family
+    ]
 
-b2=Button(text= 'Select', command=bath)
-b2.pack()
+    l = []
+    for p in Apartment_Buildings:
+        l.append(p["name"])
 
-#Budget Selection-------------------------------------------------------
-T = Text(w1, height=2, width=30)
-T.pack()
-T.insert(END, "Please input your \n monthly budget: ")
+    Apartment_Buildings = list(set(l))
+    Apartment_Buildings = sorted(Apartment_Buildings)
 
-budget_value = tkinter.StringVar()
-my_budget = tkinter.Entry(textvariable=budget_value)
-
-def budget():
-    print(my_budget.get())
-
-my_button = tkinter.Button(text="Select", command=budget)
-my_budget.pack()
-my_button.pack()
-
-#Move-in Date Selection-------------------------------------------------------
-T = Text(w1, height=3, width=30)
-T.pack()
-T.insert(END, "Please input your \n move in date with \n the following format mm/dd/yyyy ")
-
-move_value = tkinter.StringVar()
-my_move = tkinter.Entry(textvariable=move_value)
-
-def movein():
-    print(my_move.get())
-
-my_button_two = tkinter.Button(text="Select", command=movein)
-my_move.pack()
-my_button_two.pack()
+    Apartment= ['avalon-ballston-square','ava-ballston'] #to connect to name on different lines
+    for val in Apartment:
+        l4.insert(END, val)
+    l4.pack()
 
 
-#Notification Selection------------------------------------------------
-T = Text(w1, height=2, width=30)
-T.pack()
-T.insert(END, "Please select your desired \n notification setting: ")
+    b5=Button(text= 'Select', command=apartment)
+    b5.pack()
 
-emails= ['One time', 'Recurring']
-for val in emails:
-    l5.insert(END, val)
-l5.pack()
+    #Bedroom Selection-------------------------------------------------------
+    T = Text(w1, height=2, width=30)
+    T.pack()
+    T.insert(END, "Please select your desired \n number of bedrooms: ")
 
-b6=Button(text= 'Select', command=notifications)
-b6.pack()
+    bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
+    for val in bedroom:
+        l1.insert(END, val)
+    l1.pack()
 
-#Quit Button-----------------------------------------------------------
-b4 = Button(w1, text='Done', command=w1.quit)
-b4.pack()
+    b1=Button(text= 'Select', command=bed)
+    b1.pack()
 
-w1.mainloop()
+    #Bathroom Selection-------------------------------------------------------
+    T = Text(w1, height=2, width=30)
+    T.pack()
+    T.insert(END, "Please select your desired \n number of bathrooms: ")
 
-print("---------------------------------------")
-user_input = input("Are these values correct? ")
-y = ["Yes","yes","YES"]
-if user_input in y:
-    print ("Great, we will save your inputs!")
-    t = datetime.datetime.now()
-    print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
-    print("---------------------------------------")
-    exit
-else:
-    print("Please change your desired inputs and press 'Done'.")
-    print("---------------------------------------")
+    bathroom= ['One bathroom', 'Two Bathrooms', 'More than Two Bathrooms']
+    for val in bathroom:
+        l2.insert(END, val)
+    l2.pack()
+
+    b2=Button(text= 'Select', command=bath)
+    b2.pack()
+
+    #Budget Selection-------------------------------------------------------
+    T = Text(w1, height=2, width=30)
+    T.pack()
+    T.insert(END, "Please input your \n monthly budget: ")
+
+    budget_value = tkinter.StringVar()
+    my_budget = tkinter.Entry(textvariable=budget_value)
+
+    def budget():
+        print(my_budget.get())
+
+    my_button = tkinter.Button(text="Select", command=budget)
+    my_budget.pack()
+    my_button.pack()
+
+    #Move-in Date Selection-------------------------------------------------------
+    T = Text(w1, height=2, width=30)
+    T.pack()
+    T.insert(END, "Please input your move in date with \n the following format mm/dd/yyyy ")
+
+    move_value = tkinter.StringVar()
+    my_move = tkinter.Entry(textvariable=move_value)
+
+    def movein():
+        print(my_move.get())
+
+    my_button_two = tkinter.Button(text="Select", command=movein)
+    my_move.pack()
+    my_button_two.pack()
+
+
+    #Notification Selection------------------------------------------------
+    T = Text(w1, height=2, width=30)
+    T.pack()
+    T.insert(END, "Please select your desired \n notification setting: ")
+
+    emails= ['One time', 'Recurring']
+    for val in emails:
+        l5.insert(END, val)
+    l5.pack()
+
+    b6=Button(text= 'Select', command=notifications)
+    b6.pack()
+
+    #Quit Button-----------------------------------------------------------
+    b4 = Button(w1, text='Done', command=w1.quit)
+    b4.pack()
+
     w1.mainloop()
 
+    print("---------------------------------------")
+    user_input = input("Are these values correct? ")
+    y = ["Yes","yes","YES"]
+    if user_input in y:
+        print ("Great, we will save your inputs!")
+        t = datetime.datetime.now()
+        print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
+        print("---------------------------------------")
+        exit
+    else:
+        print("Please change your desired inputs and press 'Done'.")
+        print("---------------------------------------")
+        w1.mainloop()
+
+
+    mylist.insert(END, (line))
+
+mylist.pack( side = LEFT, fill = BOTH )
+scrollbar.config( command = mylist.yview )
 
 breakpoint
 
-#User Inputs Collected------------------------------------------------
+    #User Inputs Collected------------------------------------------------
 
 
 
 
 
-#Scraping the Website--------------------------------------------------
+    #Scraping the Website--------------------------------------------------
 
 
 
 
-#todo:
-#connect avalon list to original list
-#validate tkinter inputs/make sure at least one is selected
+    #todo:
+    #connect avalon list to original list
+    #validate tkinter inputs/make sure at least one is selected
+
+    #have to set up a scrollbar
