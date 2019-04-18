@@ -255,7 +255,7 @@ driver.get(URL)
 
 try:
     listings_appear = EC.presence_of_element_located((By.ID, "floor-plan-listing"))
-    wait_duration = 3 # seconds
+    wait_duration = 3
     div = WebDriverWait(driver, wait_duration).until(listings_appear)
     print("PAGE LOADED!")
 except TimeoutException:
@@ -265,21 +265,30 @@ finally:
     soup = BeautifulSoup(driver.page_source, "html.parser")
     one_br_layouts = soup.find("div", id="bedrooms-1").findAll("div", "row")
     
-    print("                                       ")
     print("One Bedroom Apartments:")
-    print("                                       ")
     print("Number      Move-in Date        Price")
     print("                                       ")
 
 #Apartments listings--------------------------------------------------------------------
     for layout in one_br_layouts:
     
-    #Apartment Number, Move-in Date and Budget-----------------------------------------
+    #Apartment Information-------------------------------------------------------------
+        one_br=(layout.find("table").find("tbody").text)
+    
+    #First Apartment Number, Move-in Date and Budget-----------------------------------------
         one_br_table=(layout.find("table").find("tbody").find("tr").text)
         one_br_number=(one_br_table[1:5])
-        one_br_date=(one_br_table[6:15])
-        one_br_price=(one_br_table[16:21])
+        one_br_date=(one_br_table[5:15])
+        one_br_price=(one_br_table[15:21])
         print((one_br_number) + "          " + str(one_br_date) +  "          "  + str(one_br_price))
+
+     #Other Apartment Number, Move-in Date and Budget-----------------------------------------
+        one_br_table=(layout.find("table").find("tbody").text)
+        one_br_second_number=(one_br_table[34:38])
+        one_br_second_date=(one_br_table[38:48])
+        one_br_second_price=(one_br_table[48:54])
+        print((one_br_second_number) + "          " + str(one_br_second_date) + "          "  + str(one_br_second_price))
+
     #Bed, Bath Count-------------------------------------------------------------------
         one_br_listing=(layout.find("h4").text)
         print(one_br_listing)
@@ -287,7 +296,9 @@ finally:
         number_of_bathrooms=(one_br_listing[11])
         print("--------------------------------------------")    
 
-    #only giving me top hit 
+    #can manually do it but way to do it through with table?
+
+
 
 
 
