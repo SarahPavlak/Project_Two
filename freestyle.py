@@ -151,7 +151,7 @@ for line in range(100):
     Apartment_Buildings = list(set(l))
     Apartment_Buildings = sorted(Apartment_Buildings)
 
-    Apartment= [Apartment_Buildings] #to connect to name on different lines
+    Apartment= [Apartment_Buildings[0],Apartment_Buildings[1]] #to connect to name on different lines
     for val in Apartment:
         l4.insert(END, val)
     l4.pack()
@@ -241,83 +241,3 @@ mylist.pack( side = LEFT, fill = BOTH )
 scrollbar.config( command = mylist.yview )
 
 breakpoint
-
-
-#todo:
-#connect avalon list to original list
-#validate tkinter inputs/make sure at least one is selected
-#resize image
-#have to set up a scrollbar
-#connect to beautiful soup
-
-    #Scraping the Website--------------------------------------------------
-# adapted from: https://selenium-python.readthedocs.io/waits.html
-
-from bs4 import BeautifulSoup
-
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-
-URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"
-
-driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
-
-driver.get(URL)
-
-try:
-    listings_appear = EC.presence_of_element_located((By.ID, "floor-plan-listing"))
-    wait_duration = 3
-    div = WebDriverWait(driver, wait_duration).until(listings_appear)
-    print("PAGE LOADED!")
-except TimeoutException:
-    print("TIME OUT!")
-finally:
-
-    soup = BeautifulSoup(driver.page_source, "html.parser")
-    one_br_layouts = soup.find("div", id="bedrooms-1").findAll("div", "row")
-    
-    print("One Bedroom Apartments:")
-    print("Number      Move-in Date        Price")
-    print("                                       ")
-
-#Apartments listings--------------------------------------------------------------------
-    for layout in one_br_layouts:
-    
-    #Apartment Information-------------------------------------------------------------
-        one_br=(layout.find("table").find("tbody").text)
-    
-    #First Apartment Number, Move-in Date and Budget-----------------------------------------
-        one_br_table=(layout.find("table").find("tbody").find("tr").text)
-        one_br_number=(one_br_table[1:5])
-        one_br_date=(one_br_table[5:15])
-        one_br_price=(one_br_table[15:21])
-        print((one_br_number) + "          " + str(one_br_date) +  "          "  + str(one_br_price))
-
-     #Other Apartment Number, Move-in Date and Budget-----------------------------------------
-        one_br_table=(layout.find("table").find("tbody").text)
-        one_br_second_number=(one_br_table[34:38])
-        one_br_second_date=(one_br_table[38:48])
-        one_br_second_price=(one_br_table[48:54])
-        print((one_br_second_number) + "          " + str(one_br_second_date) + "          "  + str(one_br_second_price))
-
-    #Bed, Bath Count-------------------------------------------------------------------
-        one_br_listing=(layout.find("h4").text)
-        print(one_br_listing)
-        number_of_bedrooms=(one_br_listing[0])
-        number_of_bathrooms=(one_br_listing[11])
-        print("--------------------------------------------")    
-
-    #can manually do it but way to do it through with table?
-
-
-
-
-
-    #todo:
-    #connect avalon list to original list
-    #validate tkinter inputs/make sure at least one is selected
-    #have to set up a scrollbar
-    #to resize image
