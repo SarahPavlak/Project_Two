@@ -249,12 +249,11 @@ from selenium.common.exceptions import TimeoutException
 
 URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"
 
-driver = webdriver.Chrome("/usr/local/bin/chromedriver") # location where chromedriver is installed
+driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
 
 driver.get(URL)
 
 try:
-    #div = driver.find_element_by_id("floor-plan-listing") #> selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"id","selector":"floor-plan-listing"}
     listings_appear = EC.presence_of_element_located((By.ID, "floor-plan-listing"))
     wait_duration = 3 # seconds
     div = WebDriverWait(driver, wait_duration).until(listings_appear)
@@ -264,18 +263,31 @@ except TimeoutException:
 finally:
 
     soup = BeautifulSoup(driver.page_source, "html.parser")
-
-
     one_br_layouts = soup.find("div", id="bedrooms-1").findAll("div", "row")
+    
+    print("                                       ")
+    print("One Bedroom Apartments:")
+    print("                                       ")
+    print("Number      Move-in Date        Price")
+    print("                                       ")
+
+#Apartments listings--------------------------------------------------------------------
     for layout in one_br_layouts:
-        #table=(layout.find("table")["h4"])
-        one_br_headers=(layout.find("table").find("thead").find("tr").text)
-        print(one_br_headers)
-        
-        one_br_listings=(layout.find("table").find("tbody").find("tr").text)
-        print(one_br_listings)
-      
-        #breakpoint()
+    
+    #Apartment Number, Move-in Date and Budget-----------------------------------------
+        one_br_table=(layout.find("table").find("tbody").find("tr").text)
+        one_br_number=(one_br_table[1:5])
+        one_br_date=(one_br_table[6:15])
+        one_br_price=(one_br_table[16:21])
+        print((one_br_number) + "          " + str(one_br_date) +  "          "  + str(one_br_price))
+    #Bed, Bath Count-------------------------------------------------------------------
+        one_br_listing=(layout.find("h4").text)
+        print(one_br_listing)
+        number_of_bedrooms=(one_br_listing[0])
+        number_of_bathrooms=(one_br_listing[11])
+        print("--------------------------------------------")    
+
+    #only giving me top hit 
 
 
 
