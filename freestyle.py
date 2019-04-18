@@ -42,6 +42,8 @@ def bath():
     print(bath_value)
     selections.append(bath_value)
 
+def budget():
+    print(my_budget.get())
     
 def notifications():
     notification_value=[l5.get(i) for i in l5.curselection()]
@@ -50,6 +52,8 @@ def notifications():
 
 def select():
     print("Your final selections are:")
+    selections.append(my_budget.get())
+    selections.append((my_move.get()))
     print(selections)
 
     print("---------------------------------------")
@@ -172,7 +176,7 @@ for line in range(100):
     b1=Button(text= 'Select', command=bed)
     b1.pack()
 
-    #Bathroom Selection-------------------------------------------------------
+#Bathroom Selection-------------------------------------------------------
     T = Text(w1, height=2, width=30)
     T.pack()
     T.insert(END, "Please select your desired \n number of bathrooms: ")
@@ -194,14 +198,11 @@ for line in range(100):
     budget_value = tkinter.StringVar()
     my_budget = tkinter.Entry(textvariable=budget_value)
 
-    def budget():
-        print(my_budget.get())
-
     my_button = tkinter.Button(text="Select", command=budget)
     my_budget.pack()
     my_button.pack()
 
-    #Move-in Date Selection-------------------------------------------------------
+#Move-in Date Selection-------------------------------------------------------
     T = Text(w1, height=2, width=30)
     T.pack()
     T.insert(END, "Please input your move in date with \n the following format mm/dd/yyyy ")
@@ -216,7 +217,7 @@ for line in range(100):
     my_move.pack()
     my_button_two.pack()
 
-    #Notification Selection------------------------------------------------
+ #Notification Selection------------------------------------------------
     T = Text(w1, height=2, width=30)
     T.pack()
     T.insert(END, "Please select your desired \n notification setting: ")
@@ -229,7 +230,7 @@ for line in range(100):
     b6=Button(text= 'Select', command=notifications)
     b6.pack()
 
-    #Quit Button-----------------------------------------------------------
+#Selections Button-----------------------------------------------------------
     b4 = Button(w1, text='Done', command=select)
     b4.pack()
 
@@ -250,6 +251,7 @@ breakpoint
 #validate tkinter inputs/make sure at least one is selected
 #resize image
 #have to set up a scrollbar
+#connect to beautiful soup
 
 
     #Scraping the Website--------------------------------------------------
