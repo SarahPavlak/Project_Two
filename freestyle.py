@@ -21,27 +21,56 @@ print("To start, please input your apartment preferences.")
 
 #App set-up----------------------------------------------------------------
 #https://www.tutorialspoint.com/python/tk_scrollbar.htm
+#https://stackoverflow.com/questions/7974849/how-can-i-make-one-python-file-run-another
+
+selections = []
 
 def apartment():
     apartment_value=[l4.get(i) for i in l4.curselection()]
     print("---------------------------------------")
     print("You have selected: ")
     print(apartment_value)
-    
+    selections.append(apartment_value)
+  
 def bed():
     bed_value=[l1.get(i) for i in l1.curselection()]
     print(bed_value)
+    selections.append(bed_value)
 
 def bath():
     bath_value=[l2.get(i) for i in l2.curselection()]
     print(bath_value)
+    selections.append(bath_value)
+
     
 def notifications():
     notification_value=[l5.get(i) for i in l5.curselection()]
     print(notification_value)
-    if 'One time' in notification_value:
+    selections.append(notification_value)
+
+def select():
+    print("Your final selections are:")
+    print(selections)
+
+    print("---------------------------------------")
+    user_input = input("Are these values correct? ")
+    y = ["Yes","yes","YES"]
+    if user_input in y:
+        print ("Great, we will save your inputs!")
+        t = datetime.datetime.now()
+        print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
+        print("---------------------------------------")
+        exit
+    else:
+        print("Please change your desired inputs and press 'Done'.")
+        selections.clear() #https://www.geeksforgeeks.org/list-methods-in-python-set-2-del-remove-sort-insert-pop-extend/
+        print("---------------------------------------")
+        w1.mainloop()
+
+
+    if 'One time' in selections: #no matter what picks the else thing
         print("You will now receive an email to your inbox")
-               
+            
         load_dotenv()
 
         SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please set env var called 'SENDGRID_API_KEY'")
@@ -69,12 +98,10 @@ def notifications():
         print("BODY:")
         print(response.body)
 
-       
-
     else:
         print("After pressing 'Done' you will be given instructions to heroku to configure your emails")
 
-    
+
 
 w1= Tk()
 w1.title('Apartment Selection App')
@@ -133,17 +160,17 @@ for line in range(100):
     b5.pack()
 
     #Bedroom Selection-------------------------------------------------------
-    #T = Text(w1, height=2, width=30)
-    #T.pack()
-    #T.insert(END, "Please select your desired \n number of bedrooms: ")
+    T = Text(w1, height=2, width=30)
+    T.pack()
+    T.insert(END, "Please select your desired \n number of bedrooms: ")
 
-    #bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
-    #for val in bedroom:
-        #l1.insert(END, val)
-    #l1.pack()
+    bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
+    for val in bedroom:
+        l1.insert(END, val)
+    l1.pack()
 
-    #b1=Button(text= 'Select', command=bed)
-    #b1.pack()
+    b1=Button(text= 'Select', command=bed)
+    b1.pack()
 
     #Bathroom Selection-------------------------------------------------------
     T = Text(w1, height=2, width=30)
@@ -158,7 +185,8 @@ for line in range(100):
     b2=Button(text= 'Select', command=bath)
     b2.pack()
 
-    #Budget Selection-------------------------------------------------------
+
+#Budget Selection-------------------------------------------------------
     T = Text(w1, height=2, width=30)
     T.pack()
     T.insert(END, "Please input your \n monthly budget: ")
@@ -188,7 +216,6 @@ for line in range(100):
     my_move.pack()
     my_button_two.pack()
 
-
     #Notification Selection------------------------------------------------
     T = Text(w1, height=2, width=30)
     T.pack()
@@ -203,24 +230,11 @@ for line in range(100):
     b6.pack()
 
     #Quit Button-----------------------------------------------------------
-    b4 = Button(w1, text='Done', command=w1.quit)
+    b4 = Button(w1, text='Done', command=select)
     b4.pack()
 
     w1.mainloop()
 
-    print("---------------------------------------")
-    user_input = input("Are these values correct? ")
-    y = ["Yes","yes","YES"]
-    if user_input in y:
-        print ("Great, we will save your inputs!")
-        t = datetime.datetime.now()
-        print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
-        print("---------------------------------------")
-        exit
-    else:
-        print("Please change your desired inputs and press 'Done'.")
-        print("---------------------------------------")
-        w1.mainloop()
 
 
     mylist.insert(END, (line))
@@ -230,10 +244,12 @@ scrollbar.config( command = mylist.yview )
 
 breakpoint
 
-    #User Inputs Collected------------------------------------------------
 
-
-
+#todo:
+#connect avalon list to original list
+#validate tkinter inputs/make sure at least one is selected
+#resize image
+#have to set up a scrollbar
 
 
     #Scraping the Website--------------------------------------------------
