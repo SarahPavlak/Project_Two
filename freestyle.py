@@ -1,21 +1,3 @@
-import tkinter as tk
-from tkinter import *
-import datetime
-import tkinter
-from PIL import Image, ImageTk
-import os
-import pprint
-from dotenv import load_dotenv
-import sendgrid
-from sendgrid.helpers.mail import * 
-from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-
-
 print("To start, please input your apartment preferences.")
 #TNKTR USERINPUTS----------------------------------------------------------
 #https://github.com/s2t2/shopping-cart-project/blob/master/shopping_cart.py
