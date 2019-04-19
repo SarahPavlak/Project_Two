@@ -1,1 +1,16 @@
-
+tkinter as tk
+from tkinter import *
+datetime
+tkinter
+PIL import Image, ImageTk
+os
+pprint
+from dotenv import load_dotenv
+sendgrid
+from sendgrid.helpers.mail import * 
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
