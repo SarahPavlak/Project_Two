@@ -57,8 +57,8 @@ def notifications():
 
 def select():
     print("Your final selections are:")
-    selections.append(my_budget.get())
-    selections.append((my_move.get()))
+    #selections.append(my_budget.get())
+    #selections.append((my_move.get()))
     print(selections)
 
     print("---------------------------------------")
@@ -76,141 +76,27 @@ def select():
         print("---------------------------------------")
         w1.mainloop()
 
-    if 'avalon-ballston' and 'One Bedroom' and 'One Bathroom' in selections:
-        URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"
 
-        driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
-        driver.get(URL)
-
-        try:
-            listings_appear = EC.presence_of_element_located((By.ID, "floor-plan-listing"))
-            wait_duration = 3
-            div = WebDriverWait(driver, wait_duration).until(listings_appear)
-            print("PAGE LOADED!")
-        except TimeoutException:
-            print("TIME OUT!")
-        finally:
-
-            soup = BeautifulSoup(driver.page_source, "html.parser")
-            one_br_layouts = soup.find("div", id="bedrooms-1").findAll("div", "row")
-            
-            print("One Bedroom Apartments:")
-            print("Number      Move-in Date        Price")
-            print("                                       ")
-
-        #Apartments listings--------------------------------------------------------------------
-            for layout in one_br_layouts:
-            
-            #Apartment Information-------------------------------------------------------------
-                one_br=(layout.find("table").find("tbody").text)
-            
-            #First Apartment Number, Move-in Date and Budget-----------------------------------------
-                one_br_table=(layout.find("table").find("tbody").find("tr").text)
-                one_br_number=(one_br_table[1:5])
-                one_br_date=(one_br_table[5:15])
-                one_br_price=(one_br_table[15:21])
-                print((one_br_number) + "          " + str(one_br_date) +  "          "  + str(one_br_price))
-
-            #Other Apartment Number, Move-in Date and Budget-----------------------------------------
-                one_br_table=(layout.find("table").find("tbody").text)
-                one_br_second_number=(one_br_table[34:38])
-                one_br_second_date=(one_br_table[38:48])
-                one_br_second_price=(one_br_table[48:54])
-                print((one_br_second_number) + "          " + str(one_br_second_date) + "          "  + str(one_br_second_price))
-
-            #Bed, Bath Count-------------------------------------------------------------------
-                one_br_listing=(layout.find("h4").text)
-                print(one_br_listing)
-                number_of_bedrooms=(one_br_listing[0])
-                number_of_bathrooms=(one_br_listing[11])
-                print("--------------------------------------------")    
-
+  
+    #Avalon Ballston
+    if ['avalon-ballston-square'] in selections and ['One Bedroom'] in selections and ['One Bathroom'] in selections: 
+        os.system('python avalon_ballston_one_bed_one_bath.py') #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script
     else:
-            URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"
+        pass
 
-            driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
+        if ['One time'] in selections: 
+            print("You will now receive an email to your inbox")
+            os.systems ('python one_time_email.py')
+        else:
+            print("After pressing 'Done' you will be given instructions to heroku to configure your emails")
 
-            driver.get(URL)
-
-            try:
-                listings_appear = EC.presence_of_element_located((By.ID, "floor-plan-listing"))
-                wait_duration = 3
-                div = WebDriverWait(driver, wait_duration).until(listings_appear)
-                print("PAGE LOADED!")
-            except TimeoutException:
-                print("TIME OUT!")
-            finally:
-
-                soup = BeautifulSoup(driver.page_source, "html.parser")
-                one_br_layouts = soup.find("div", id="bedrooms-1").findAll("div", "row")
-                
-                print("One Bedroom Apartments:")
-                print("Number      Move-in Date        Price")
-                print("                                       ")
-
-            #Apartments listings--------------------------------------------------------------------
-                for layout in one_br_layouts:
-                
-                #Apartment Information-------------------------------------------------------------
-                    one_br=(layout.find("table").find("tbody").text)
-                
-                #First Apartment Number, Move-in Date and Budget-----------------------------------------
-                    one_br_table=(layout.find("table").find("tbody").find("tr").text)
-                    one_br_number=(one_br_table[1:5])
-                    one_br_date=(one_br_table[5:15])
-                    one_br_price=(one_br_table[15:21])
-                    print((one_br_number) + "          " + str(one_br_date) +  "          "  + str(one_br_price))
-
-                #Other Apartment Number, Move-in Date and Budget-----------------------------------------
-                    one_br_table=(layout.find("table").find("tbody").text)
-                    one_br_second_number=(one_br_table[34:38])
-                    one_br_second_date=(one_br_table[38:48])
-                    one_br_second_price=(one_br_table[48:54])
-                    print((one_br_second_number) + "          " + str(one_br_second_date) + "          "  + str(one_br_second_price))
-
-                #Bed, Bath Count-------------------------------------------------------------------
-                    one_br_listing=(layout.find("h4").text)
-                    print(one_br_listing)
-                    number_of_bedrooms=(one_br_listing[0])
-                    number_of_bathrooms=(one_br_listing[11])
-                    print("--------------------------------------------")    
-
-                #can manually do it but way to do it through with table?
-
-
-
-    if 'One time' in selections: #no matter what picks the else thing - to fix
-        print("You will now receive an email to your inbox")
-            
-        load_dotenv()
-
-        SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please set env var called 'SENDGRID_API_KEY'")
-        MY_EMAIL_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS", "OOPS, please set env var called 'MY_EMAIL_ADDRESS'")
-
-        sg = sendgrid.SendGridAPIClient(apikey=SENDGRID_API_KEY)
-
-        from_email = Email(MY_EMAIL_ADDRESS)
-        to_email = Email(MY_EMAIL_ADDRESS)
-        subject = "Apartment Update!"
-        message_text = "Hello, \n\nThe following email provides an update on your desired apartments: "
-        content = Content("text/plain", message_text)
-        mail = Mail(from_email, subject, to_email, content)
-
-        response = sg.client.mail.send.post(request_body=mail.get())
-        pp = pprint.PrettyPrinter(indent=4)
-
-        print("----------------------")
-        print("EMAIL")
-        print("----------------------")
-        print("RESPONSE: ", type(response))
-        print("STATUS:", response.status_code) 
-        print("HEADERS:")
-        pp.pprint(dict(response.headers))
-        print("BODY:")
-        print(response.body)
-
+    #Ava Ballston
+    if ['ava-ballston'] in selections and ['One Bedroom'] in selections and ['One Bathroom'] in selections: 
+        scrape = os.system('python ava_ballston_one_bed_one_bath.py') #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script
     else:
-        print("After pressing 'Done' you will be given instructions to heroku to configure your emails")
+        pass
+    
+    #Sending email-----------------------------------------------------------------------------------------------
 
 w1= Tk()
 w1.title('Apartment Selection App')
@@ -223,7 +109,7 @@ scrollbar.pack( side = RIGHT, fill = Y )
 
 mylist = Listbox(w1, yscrollcommand = scrollbar.set )
 for line in range(100):
-    line =  0 #to put info in this scrollable section
+    line =  1 #to put info in this scrollable section
 
 
     l1= Listbox(w1, selectmode= MULTIPLE, width= 20, height=5)
@@ -287,7 +173,7 @@ for line in range(100):
     T.pack()
     T.insert(END, "Please select your desired \n number of bathrooms: ")
 
-    bathroom= ['One bathroom', 'Two Bathrooms', 'More than Two Bathrooms']
+    bathroom= ['One Bathroom', 'Two Bathrooms', 'More than Two Bathrooms']
     for val in bathroom:
         l2.insert(END, val)
     l2.pack()
@@ -296,44 +182,44 @@ for line in range(100):
     b2.pack()
 
 #Budget Selection-------------------------------------------------------
-    T = Text(w1, height=2, width=30)
-    T.pack()
-    T.insert(END, "Please input your \n monthly budget: ")
+    #T = Text(w1, height=2, width=30)
+    #T.pack()
+    #T.insert(END, "Please input your \n monthly budget: ")
 
-    budget_value = tkinter.StringVar()
-    my_budget = tkinter.Entry(textvariable=budget_value)
+    #budget_value = tkinter.StringVar()
+    #my_budget = tkinter.Entry(textvariable=budget_value)
 
-    my_button = tkinter.Button(text="Select", command=budget)
-    my_budget.pack()
-    my_button.pack()
+    #my_button = tkinter.Button(text="Select", command=budget)
+    #my_budget.pack()
+    #my_button.pack()
 
 #Move-in Date Selection-------------------------------------------------------
-    T = Text(w1, height=2, width=30)
-    T.pack()
-    T.insert(END, "Please input your move in date with \n the following format mm/dd/yyyy ")
+    #T = Text(w1, height=2, width=30)
+    #T.pack()
+    #T.insert(END, "Please input your move in date with \n the following format mm/dd/yyyy ")
 
-    move_value = tkinter.StringVar()
-    my_move = tkinter.Entry(textvariable=move_value)
+    #move_value = tkinter.StringVar()
+    #my_move = tkinter.Entry(textvariable=move_value)
 
-    def movein():
-        print(my_move.get())
+    #def movein():
+        #print(my_move.get())
 
-    my_button_two = tkinter.Button(text="Select", command=movein)
-    my_move.pack()
-    my_button_two.pack()
+    #my_button_two = tkinter.Button(text="Select", command=movein)
+    #my_move.pack()
+    #my_button_two.pack()
 
  #Notification Selection------------------------------------------------
-    T = Text(w1, height=2, width=30)
-    T.pack()
-    T.insert(END, "Please select your desired \n notification setting: ")
+    #T = Text(w1, height=2, width=30)
+    #T.pack()
+    #T.insert(END, "Please select your desired \n notification setting: ")
 
-    emails= ['One time', 'Recurring']
-    for val in emails:
-        l5.insert(END, val)
-    l5.pack()
+    #emails= ['One time', 'Recurring']
+    #for val in emails:
+        #l5.insert(END, val)
+    #l5.pack()
 
-    b6=Button(text= 'Select', command=notifications)
-    b6.pack()
+    #b6=Button(text= 'Select', command=notifications)
+    #b6.pack()
 
 #Selections Button-----------------------------------------------------------
     b4 = Button(w1, text='Done', command=select)
@@ -349,8 +235,6 @@ breakpoint
 
 
 #todo:
-#connect avalon list to original list
 #validate tkinter inputs/make sure at least one is selected
-#resize image
 #have to set up a scrollbar
-#connect to beautiful soup
+#google sheet tracking list
