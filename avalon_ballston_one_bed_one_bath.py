@@ -39,51 +39,35 @@ finally:
         one_br_str= str(one_br)
         one_br_list = one_br_str.split("View Details")
 
+        
+
         for listing_str in one_br_list:
             if listing_str != " ":
-                move_in = '06/07/2019'
-                my_budget = '2700'
-
-                num = listing_str[:5]
-                date = listing_str[5: listing_str.find("$")]
+                #budget validation:
                 price = listing_str[listing_str.find("$"):]
-                price_to_int = price[1] + price[3:5]
-                price_int = int(price_to_int)
+                price_to_int = price[1:6]
+                new_price = price_to_int.replace(',', "")
+                new_new_price = (int(new_price))
+                #print(new_price)
+                monthly_budget = 2200
+                
+                p = []
+                if monthly_budget > new_new_price:
+                    p.append(new_new_price)
+                    #print(p) 
+                    print(listing_str[:5] + "        " + listing_str[5: listing_str.find("$")] +  "         " +  " "  + str(p))
+                    woo_budget = (listing_str[:5] + "        " + listing_str[5: listing_str.find("$")] +  "         " +  " "  + str(p))
 
-                str_date = listing_str[5: listing_str.find("$")]
-                apt_move = datetime.datetime((int(str_date[-4:])),(int(str_date[:2])),(int(str_date[3:5])))
-                move_in = datetime.datetime((int(str_date[-4:])),(int(str_date[:2])),(int(str_date[3:5])))
-                timediff = (move_in) - (apt_move)
-
-
-                if (str(price_int) < str(my_budget) and abs(timediff.days)<20):
-                    print(listing_str[:5] + "        " + listing_str[5: listing_str.find("$")] +  "         " +  " "  + listing_str[listing_str.find("$"):])
-                    one_br_listing=(layout.find("h4").text)
-
-                    
-                    csvData.append([num,date,price, one_br_listing])
-
-                    budget = listing_str[listing_str.find("$"):]
-                    move_date = listing_str[5: listing_str.find("$")] 
-                else:
+                    csvData.append([woo_budget])
+                    with open('apartment3.csv', 'a+') as csvFile:
+                        writer = csv.writer(csvFile)
+                        writer.writerows(csvData)
+                    csvFile.close()
+                
+                
+                else: 
                     pass
 
-
-                #to change to update for budget and move in date
-
-
-                #https://www.youtube.com/watch?v=fc9buLUiqLE
+        
             else:
                 pass
-        
-    #Bed, Bath Count-------------------------------------------------------------------
-        one_br_listing=(layout.find("h4").text)
-        number_of_bedrooms=(one_br_listing[0])
-        number_of_bathrooms=(one_br_listing[11])
-        print("--------------------------------------------")    
-
-
-        with open('apartment3.csv', 'a+') as csvFile:
-            writer = csv.writer(csvFile)
-            writer.writerows(csvData)
-        csvFile.close()
