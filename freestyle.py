@@ -1,4 +1,3 @@
-
 import tkinter as tk
 from tkinter import *
 import datetime
@@ -15,6 +14,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+import csv 
 
 
 print("To start, please input your apartment preferences.")
@@ -69,6 +69,7 @@ def select():
         t = datetime.datetime.now()
         print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
         print("---------------------------------------")
+        w1.quit
         exit
     else:
         print("Please change your desired inputs and press 'Done'.")
@@ -79,16 +80,55 @@ def select():
 
   
     #Avalon Ballston
-    if ['avalon-ballston-square'] in selections and ['One Bedroom'] in selections and ['One Bathroom'] in selections: 
-        os.system('python avalon_ballston_one_bed_one_bath.py') #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script
+    if ['avalon-ballston-square'] in selections and ['One Bedroom'] in selections and ['One time'] in selections: #and ['One Bathroom'] in selections 
+        
+        #updates the csv file that the code will now read
+        os.system('python avalon_ballston_square_one_bed_one_bath.py') #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script
+        
+        print("You will now receive an email to your inbox")
+        
+        load_dotenv()
+
+        SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please set env var called 'SENDGRID_API_KEY'")
+        MY_EMAIL_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS", "OOPS, please set env var called 'MY_EMAIL_ADDRESS'")
+
+        # AUTHENTICATE
+
+        import csv
+
+        with open("apartment3.csv", 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                applicable_apartments =  str(row)
+
+        csvfile.close()
+
+        sg = sendgrid.SendGridAPIClient(apikey=SENDGRID_API_KEY)
+
+        # COMPILE REQUEST PARAMETERS (PREPARE THE EMAIL)
+
+        from_email = Email(MY_EMAIL_ADDRESS)
+        to_email = Email(MY_EMAIL_ADDRESS)
+        subject = "Apartment Update!"
+        content = Content("text/plain", "hello, below please find your applicable apartments \n" + applicable_apartments) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
+        
+
+
+        mail = Mail(from_email, subject, to_email, content)
+
+        # ISSUE REQUEST (SEND EMAIL)
+
+        response = sg.client.mail.send.post(request_body=mail.get())
+
+        # PARSE RESPONSE
+
+        print(response.status_code)
+        print(response.body) 
+        print(response.headers)
+    
     else:
         pass
 
-        if ['One time'] in selections: 
-            print("You will now receive an email to your inbox")
-            os.systems ('python one_time_email.py')
-        else:
-            print("After pressing 'Done' you will be given instructions to heroku to configure your emails")
 
     #Ava Ballston
     if ['ava-ballston'] in selections and ['One Bedroom'] in selections and ['One Bathroom'] in selections: 
@@ -96,8 +136,9 @@ def select():
     else:
         pass
     
-    #Sending email-----------------------------------------------------------------------------------------------
 
+
+#Tkiner---------------------------------------------------------------------------------
 w1= Tk()
 w1.title('Apartment Selection App')
 frame = Frame(w1)
@@ -160,7 +201,7 @@ for line in range(100):
     T.pack()
     T.insert(END, "Please select your desired \n number of bedrooms: ")
 
-    bedroom= ['Studio', 'One Bedroom', 'Two Bedrooms','More than Two Bedrooms']
+    bedroom= ['One Bedroom', 'Two Bedrooms']
     for val in bedroom:
         l1.insert(END, val)
     l1.pack()
@@ -169,17 +210,17 @@ for line in range(100):
     b1.pack()
 
 #Bathroom Selection-------------------------------------------------------
-    T = Text(w1, height=2, width=30)
-    T.pack()
-    T.insert(END, "Please select your desired \n number of bathrooms: ")
+    #T = Text(w1, height=2, width=30)
+    #T.pack()
+    #T.insert(END, "Please select your desired \n number of bathrooms: ")
 
-    bathroom= ['One Bathroom', 'Two Bathrooms', 'More than Two Bathrooms']
-    for val in bathroom:
-        l2.insert(END, val)
-    l2.pack()
+    #bathroom= ['One Bathroom', 'Two Bathrooms', 'More than Two Bathrooms']
+    #for val in bathroom:
+        #l2.insert(END, val)
+    #l2.pack()
 
-    b2=Button(text= 'Select', command=bath)
-    b2.pack()
+    #b2=Button(text= 'Select', command=bath)
+    #b2.pack()
 
 #Budget Selection-------------------------------------------------------
     #T = Text(w1, height=2, width=30)
@@ -209,17 +250,17 @@ for line in range(100):
     #my_button_two.pack()
 
  #Notification Selection------------------------------------------------
-    #T = Text(w1, height=2, width=30)
-    #T.pack()
-    #T.insert(END, "Please select your desired \n notification setting: ")
+    T = Text(w1, height=2, width=30)
+    T.pack()
+    T.insert(END, "Please select your desired \n notification setting: ")
 
-    #emails= ['One time', 'Recurring']
-    #for val in emails:
-        #l5.insert(END, val)
-    #l5.pack()
+    emails= ['One time', 'Recurring']
+    for val in emails:
+        l5.insert(END, val)
+    l5.pack()
 
-    #b6=Button(text= 'Select', command=notifications)
-    #b6.pack()
+    b6=Button(text= 'Select', command=notifications)
+    b6.pack()
 
 #Selections Button-----------------------------------------------------------
     b4 = Button(w1, text='Done', command=select)
@@ -232,9 +273,3 @@ mylist.pack( side = LEFT, fill = BOTH )
 scrollbar.config( command = mylist.yview )
 
 breakpoint
-
-
-#todo:
-#validate tkinter inputs/make sure at least one is selected
-#have to set up a scrollbar
-#google sheet tracking list
