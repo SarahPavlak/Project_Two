@@ -15,6 +15,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import csv 
+# adapted from: https://selenium-python.readthedocs.io/waits.html
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+import datetime
+import csv
+import time
+from datetime import timedelta
 
 
 print("To start, please input your apartment preferences.")
@@ -49,6 +60,7 @@ def bath():
 
 def budget():
     print(my_budget.get())
+    selections.append(my_budget.get())
     
 def notifications():
     notification_value=[l5.get(i) for i in l5.curselection()]
@@ -57,9 +69,12 @@ def notifications():
 
 def select():
     print("Your final selections are:")
-    #selections.append(my_budget.get())
     #selections.append((my_move.get()))
+    
     print(selections)
+    budget = (my_budget.get())
+    new_budget = int(budget)
+    
 
     print("---------------------------------------")
     user_input = input("Are these values correct? ")
@@ -80,10 +95,72 @@ def select():
 
   
     #Avalon Ballston
-    if ['avalon-ballston-square'] in selections and ['One Bedroom'] in selections and ['One time'] in selections: #and ['One Bathroom'] in selections 
+    if ['avalon-ballston-square'] in selections and ['One Bedroom'] in selections:  #and ['One Bathroom'] in selections 
+
+        import csv
+
+        with open("apartment3.csv", 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                applicable_apartments =  str(row)
+
+        csvfile.close()
         
-        #updates the csv file that the code will now read
-        os.system('python avalon_ballston_square_one_bed_one_bath.py') #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script
+        URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"
+        driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
+        driver.get(URL)
+
+        csvData =  [['Apartment Number ', 'Move-In ','Budget ']] #to link output to this
+
+
+        try:
+            listings_appear = EC.presence_of_element_located((By.ID, "floor-plan-listing"))
+            wait_duration = 3
+            div = WebDriverWait(driver, wait_duration).until(listings_appear)
+            print("PAGE LOADED!")
+        except TimeoutException:
+            print("TIME OUT!")
+        finally:
+            soup = BeautifulSoup(driver.page_source, "html.parser")
+            one_br_layouts = soup.find("div", id="bedrooms-1").findAll("div", "row")
+            
+            print("One Bedroom Apartments:")
+            print("                                       ")
+            print("Number      Move-in Date        Price")
+
+        #Apartments listings--------------------------------------------------------------------
+            for layout in one_br_layouts:
+            
+            #Apartment Information-------------------------------------------------------------
+                one_br=(layout.find("table").find("tbody").text)
+                one_br_str= str(one_br)
+                one_br_list = one_br_str.split("View Details")
+
+                for listing_str in one_br_list:
+                    if listing_str != " ":
+                        one_br_listing=(layout.find("h4").text)
+                        #budget validation:
+                        move_date = listing_str[5: listing_str.find("$")]
+                        price = listing_str[listing_str.find("$"):]
+                        price_to_int = price[1:6]
+                        new_price = price_to_int.replace(',', "")
+                        new_new_price = (int(new_price))
+                        monthly_budget = new_budget
+                        
+                        p = []
+                        if monthly_budget > new_new_price:
+                            p.append(new_new_price)
+                            print(listing_str[:5] + "        " + move_date +  "         " +  " "  + str(p))
+                            woo_budget = (listing_str[:5] + "        " + move_date +  "         " +  " "  + str(p))
+
+                            csvData.append([woo_budget, one_br_listing])
+                            with open('apartment3.csv', 'a+') as csvFile:
+                                writer = csv.writer(csvFile)
+                                writer.writerows(csvData)
+                            csvFile.close()
+                        
+                        else: 
+                            pass
         
         print("You will now receive an email to your inbox")
         
@@ -94,14 +171,7 @@ def select():
 
         # AUTHENTICATE
 
-        import csv
-
-        with open("apartment3.csv", 'r') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                applicable_apartments =  str(row)
-
-        csvfile.close()
+        
 
         sg = sendgrid.SendGridAPIClient(apikey=SENDGRID_API_KEY)
 
@@ -110,10 +180,7 @@ def select():
         from_email = Email(MY_EMAIL_ADDRESS)
         to_email = Email(MY_EMAIL_ADDRESS)
         subject = "Apartment Update!"
-        content = Content("text/plain", "hello, below please find your applicable apartments \n" + applicable_apartments) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
-        
-
-
+        content = Content("text/plain", "hello, below please find your applicable apartments:"+ applicable_apartments) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
         mail = Mail(from_email, subject, to_email, content)
 
         # ISSUE REQUEST (SEND EMAIL)
@@ -223,16 +290,16 @@ for line in range(100):
     #b2.pack()
 
 #Budget Selection-------------------------------------------------------
-    #T = Text(w1, height=2, width=30)
-    #T.pack()
-    #T.insert(END, "Please input your \n monthly budget: ")
+    T = Text(w1, height=2, width=30)
+    T.pack()
+    T.insert(END, "Please input your \n monthly budget: ")
 
-    #budget_value = tkinter.StringVar()
-    #my_budget = tkinter.Entry(textvariable=budget_value)
+    budget_value = tkinter.StringVar()
+    my_budget = tkinter.Entry(textvariable=budget_value)
 
-    #my_button = tkinter.Button(text="Select", command=budget)
-    #my_budget.pack()
-    #my_button.pack()
+    my_button = tkinter.Button(text="Select", command=budget)
+    my_budget.pack()
+    my_button.pack()
 
 #Move-in Date Selection-------------------------------------------------------
     #T = Text(w1, height=2, width=30)
@@ -250,17 +317,17 @@ for line in range(100):
     #my_button_two.pack()
 
  #Notification Selection------------------------------------------------
-    T = Text(w1, height=2, width=30)
-    T.pack()
-    T.insert(END, "Please select your desired \n notification setting: ")
+    #T = Text(w1, height=2, width=30)
+    #T.pack()
+    #T.insert(END, "Please select your desired \n notification setting: ")
 
-    emails= ['One time', 'Recurring']
-    for val in emails:
-        l5.insert(END, val)
-    l5.pack()
+    #mails= ['One time'] #to add in heroku notifications
+    #for val in emails:
+        #l5.insert(END, val)
+    #l5.pack()
 
-    b6=Button(text= 'Select', command=notifications)
-    b6.pack()
+    #b6=Button(text= 'Select', command=notifications)
+    #b6.pack()
 
 #Selections Button-----------------------------------------------------------
     b4 = Button(w1, text='Done', command=select)
