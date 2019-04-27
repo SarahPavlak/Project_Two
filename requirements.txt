@@ -1,0 +1,5 @@
+python-dotenv
+beautifulsoup4
+selenium
+Pillow
+sendgrid==5.6.0
