@@ -90,6 +90,7 @@ def select():
         print ("Great, we will save your inputs!")
         t = datetime.datetime.now()
         print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
+        print("To exit the program, please click the application x in the top left corner")
         print("---------------------------------------")
 
         if len(selections) < 3: #user input validation, making sure that everything is selected

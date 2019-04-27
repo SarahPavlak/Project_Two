@@ -12,7 +12,7 @@ with open("apartment.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         apartment = (row['A'])
-        print(apartment)
+        #print(apartment)
 
 with open("budget.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)

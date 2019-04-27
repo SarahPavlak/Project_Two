@@ -65,11 +65,8 @@ if apartment == "avalon-ballston-square":
         reader = csv.DictReader(csvfile)
         applicable_apartments = []
         for row in reader:
-            applicable_apartments.append(row)
-    for value in applicable_apartments:
-        print(value)
+            applicable_apartments.append(dict(row))
     csvfile.close()
-
 
     print("You will now receive an email to your inbox")
 
