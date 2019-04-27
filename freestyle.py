@@ -49,6 +49,7 @@ def apartment():
         writer.writerows(csvData)
     csvFile.close()
 
+
 def budget():
     bueno = int(my_budget.get())
     if bueno < 0: #was unable to find a way to validate that user inputted numbers with tkinter because it just kept giving me an error when I tried to do it with an if statement
@@ -91,6 +92,7 @@ def select():
         t = datetime.datetime.now()
         print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
         print("To exit the program, please click the application x in the top left corner")
+        os.system('python logic.py')
         print("---------------------------------------")
 
         if len(selections) < 3: #user input validation, making sure that everything is selected
@@ -104,23 +106,6 @@ def select():
         selections.clear() #https://www.geeksforgeeks.org/list-methods-in-python-set-2-del-remove-sort-insert-pop-extend/
         print("---------------------------------------")
 
-    #Avalon Ballston-------------------------------------------------------------------------------------------------------
-    if ['avalon-ballston-square'] in selections and ['One time'] in selections:  #and ['One Bedroom'] in selections:  #and ['One Bathroom'] in selections 
-        os.system('python scraping.py')
-        os.system('python email_compiled.py')
-            
-    #Ava Ballston---------------------------------------------------------------------------------------------------------
-    if ['ava-ballston'] in selections and ['One time'] in selections:
-        os.system('python scraping.py')
-        os.system('python email_compiled.py')
-    
-    #Ava and Avlaon------------------------------------------------------------------
-    if ['ava-ballston', 'avalon-ballston-square'] in selections and ['One time'] in selections:
-        os.system('python avalon_ballston_one_bed_one_bath.py')
-        os.system('python ava_ballston_one_bed_one_bath.py')
-        os.system('python email_compiled.py') #have to do it in this order so that the email runs after the scripts have been pulling from updated csvs, why can't consolidate this part of code
-    else:
-        pass
 
 
 #Tkiner Interface---------------------------------------------------------------------------------
