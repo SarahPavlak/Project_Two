@@ -1,12 +1,15 @@
-from my_script import enlarge, notification
+import csv 
 
-def test_enlarge(): 
-    result = enlarge 
-    assert result == 'avalon-ballston-square' or 'ava-ballston' or  'ava-ballston,avalon-ballston-square' 
+def enlarge(i):
+    with open("apartment.csv", 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+    for row in reader:
+        apartment = (row['A'])
+        return apartment
 
-def test_notification(): 
-    result = notification
-    assert result == 'One time' or 'Recurring' or 'One time,Recurring'
-
-
-#testing that apartment and notification csv has a value!
+def notification(i):
+    with open("notification.csv", 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+    for row in reader:
+        notification = (row['N'])
+        return notification
