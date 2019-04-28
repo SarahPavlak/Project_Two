@@ -12,7 +12,7 @@ with open("apartment.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         apartment = (row['A'])
-        print(apartment)
+        #print(apartment)
 
 with open("budget.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
@@ -22,7 +22,7 @@ with open("budget.csv", 'r') as csvfile:
 
 #Ava Solo
 if apartment == "ava-ballston":
-    csvData =  [] #to link output to this
+    csvData =  [" "] #randomly chosen so that title data wasnt repeated
 
     URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/ava-ballston/floor-plans"
     driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
@@ -91,12 +91,13 @@ if apartment == "ava-ballston":
 else:
     pass
 
+#Avalon Solo
 if apartment == "avalon-ballston-square":
     URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"
     driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
     driver.get(URL)
 
-    csvData =  [] 
+    csvData =  [" "] #Randomly chosen so that data didn't repeat first row 
 
     try:
         listings_appear = EC.presence_of_element_located((By.ID, "floor-plan-listing"))
@@ -131,12 +132,15 @@ if apartment == "avalon-ballston-square":
                     new_price = price_to_int.replace(',', "")
                     new_new_price = (int(new_price))
                     monthly_budget = your_budget
+                    apartment_number = listing_str[:5]
                     
                     p = []
+                    n = []
                     if monthly_budget > new_new_price:
                         p.append(new_new_price) 
-                        print("Avalon" +  "   " + listing_str[:5] + "          " + move_date +  "         " +  str(p) + "    " + str(one_br_listing))
-                        woo_budget = ("Avalon" +  "   " + listing_str[:5] + "          " + move_date +  "         " +  str(p) + "    " + str(one_br_listing))
+                        print("Avalon" +  "   " + apartment_number + "          " + move_date +  "         " +  str(p) + "    " + str(one_br_listing))
+                        woo_budget = ("Avalon" +  "   " + apartment_number + "          " + move_date +  "         " +  str(p) + "    " + str(one_br_listing))
+                    
 
                         csvData.append([woo_budget]) #https://www.youtube.com/watch?v=XynRRjG_k4I
                         with open('avalon_apartment.csv', 'a+') as csvFile:
@@ -150,6 +154,7 @@ if apartment == "avalon-ballston-square":
                             with open ('avalon_apartment.csv', 'w') as t:
                                 write = csv.writer(t)
                                 write.writerows(new_data) #http://lancerous.com/detail/48853461/48853527 gets rid of duplicates, before was having a long list duplicates
+
 
                     else: 
                         pass

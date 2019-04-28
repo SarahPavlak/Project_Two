@@ -3,6 +3,7 @@ import sendgrid
 from sendgrid.helpers.mail import * 
 import csv 
 import os
+import requests
 
 #compiled emails 
 
@@ -11,8 +12,7 @@ with open("apartment.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         apartment = (row['A'])
-        print(apartment)
-
+       
 #sending the proper email if its ava-ballston
 if apartment == "ava-ballston":
     applicable_apartments = []
@@ -24,7 +24,7 @@ if apartment == "ava-ballston":
     csvfile.close()
 
     csvfile.close()
-
+    
     print("You will now receive an email to your inbox")
 
     load_dotenv()
@@ -41,7 +41,7 @@ if apartment == "ava-ballston":
     from_email = Email(MY_EMAIL_ADDRESS)
     to_email = Email(MY_EMAIL_ADDRESS)
     subject = "Apartment Update!"
-    content = Content("text/plain", "Hello, below please find your applicable apartments:" + str(applicable_apartments)) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
+    content = Content("text/plain", str(applicable_apartments)) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
     mail = Mail(from_email, subject, to_email, content)
 
     # ISSUE REQUEST (SEND EMAIL)
@@ -65,11 +65,9 @@ if apartment == "avalon-ballston-square":
         reader = csv.DictReader(csvfile)
         applicable_apartments = []
         for row in reader:
-            applicable_apartments.append(row)
-    for value in applicable_apartments:
-        print(value)
+            applicable_apartments.append(dict(row))
+            print("                              ")
     csvfile.close()
-
 
     print("You will now receive an email to your inbox")
 
@@ -88,7 +86,7 @@ if apartment == "avalon-ballston-square":
     to_email = Email(MY_EMAIL_ADDRESS)
     subject = "Apartment Update!"
     #email.addAttachment ('avalon_apartment.csv', CSV)
-    content = Content("text/plain", "Applicable Apartments: " + str(applicable_apartments)) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
+    content = Content("text/plain", str(applicable_apartments)) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
     mail = Mail(from_email, subject, to_email, content)
 
     # ISSUE REQUEST (SEND EMAIL)
@@ -130,7 +128,7 @@ if apartment == 'ava-ballston,avalon-ballston-square':
     from_email = Email(MY_EMAIL_ADDRESS)
     to_email = Email(MY_EMAIL_ADDRESS)
     subject = "Apartment Update!"
-    content = Content("text/plain", "Hello, below please find your applicable apartments:" + str(applicable_apartments)) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
+    content = Content("text/plain", str(applicable_apartments)) #https://bytes.com/topic/python/answers/620147-how-execute-python-script-another-python-script)
     mail = Mail(from_email, subject, to_email, content)
 
     # ISSUE REQUEST (SEND EMAIL)
