@@ -15,7 +15,6 @@ with open("notification.csv", 'r') as csvfile:
 #Avalon Ballston-------------------------------------------------------------------------------------------------------
 if apartment == 'avalon-ballston-square':  
     os.system('python scraping.py')
-    os.system('python email_compiled.py')
 
 else:
     pass

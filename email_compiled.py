@@ -24,7 +24,7 @@ if apartment == "ava-ballston":
     csvfile.close()
 
     csvfile.close()
-
+    
     print("You will now receive an email to your inbox")
 
     load_dotenv()

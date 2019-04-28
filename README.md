@@ -7,6 +7,7 @@ Installing packages:
 3. pip install requests
 4. pip install beautifulsoup4
 5. pip install chromedriver (Note: if this doesn't work, see the website scraping instructions #3)
+6. pip install pytest
 
 
 Website Scraping:
