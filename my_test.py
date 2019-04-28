@@ -1,5 +1,12 @@
-from my_script import enlarge 
+from my_script import enlarge, notification
 
-def test_enlarge(): # note the function name is prefixed with "test_"
-    result = enlarge(3) # directly invoke the function we want to test
-    assert result == 300 # describe expectations for desired behavior
+def test_enlarge(): 
+    result = enlarge 
+    assert result == 'avalon-ballston-square' or 'ava-ballston' or  'ava-ballston,avalon-ballston-square' 
+
+def test_notification(): 
+    result = notification
+    assert result == 'One time' or 'Recurring' or 'One time,Recurring'
+
+
+#testing that apartment and notification csv has a value!
