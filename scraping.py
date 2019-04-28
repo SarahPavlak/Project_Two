@@ -143,7 +143,7 @@ if apartment == "avalon-ballston-square":
                     
 
                         csvData.append([woo_budget]) #https://www.youtube.com/watch?v=XynRRjG_k4I
-                        with open('avalon_apartment.csv', 'w') as csvFile:
+                        with open('avalon_apartment.csv', 'a+') as csvFile:
                             writer = csv.writer(csvFile)
                             writer.writerows(csvData)
                         csvFile.close()

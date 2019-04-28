@@ -5,6 +5,14 @@ Installing packages:
 1. In your terminal, type "pip install -r requirements.txt"
 2. pip install sendgrid
 3. pip install requests
+4. pip install beautifulsoup4
+5. pip install chromedriver (Note: if this doesn't work, see the website scraping instructions #3)
+
+
+Website Scraping:
+1. In your terminal, check to see if homebrew is installed through typing "which brew"
+2. If not installed, in your terminal type "/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+3. Follow the instructions listed at: http://chromedriver.chromium.org/ and download chromedriver
 
 Installing your Sendgrid for One Time Notifications:
 1. If not previously held, sign up for a free Sendgrid account (https://signup.sendgrid.com/) and create a key with "full permissions" acces (https://app.sendgrid.com/settings/api_keys) #https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/718d10fa22072a56101c20f82229910feb7cbc20/notes/python/packages/sendgrid.md
