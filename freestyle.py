@@ -92,7 +92,7 @@ def select():
         t = datetime.datetime.now()
         print("Response recorded at: ", datetime.datetime.now().strftime("%Y-%m-%d %H:%m:%S")) 
         print("To exit the program, please click the application x in the top left corner")
-        os.system('python logic.py')
+        os.system('python app/logic.py')
         print("---------------------------------------")
 
         if len(selections) < 3: #user input validation, making sure that everything is selected

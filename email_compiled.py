@@ -3,6 +3,7 @@ import sendgrid
 from sendgrid.helpers.mail import * 
 import csv 
 import os
+import requests
 
 #compiled emails 
 
@@ -11,8 +12,7 @@ with open("apartment.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         apartment = (row['A'])
-        print(apartment)
-
+       
 #sending the proper email if its ava-ballston
 if apartment == "ava-ballston":
     applicable_apartments = []

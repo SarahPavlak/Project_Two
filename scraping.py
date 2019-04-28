@@ -22,7 +22,7 @@ with open("budget.csv", 'r') as csvfile:
 
 #Ava Solo
 if apartment == "ava-ballston":
-    csvData =  [] #to link output to this
+    csvData =  ["V"] #randomly chosen so that title data wasnt repeated
 
     URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/ava-ballston/floor-plans"
     driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
@@ -91,12 +91,13 @@ if apartment == "ava-ballston":
 else:
     pass
 
+#Avalon Solo
 if apartment == "avalon-ballston-square":
     URL = "https://www.avaloncommunities.com/virginia/arlington-apartments/avalon-ballston-square/floor-plans"
     driver = webdriver.Chrome("/usr/local/bin/chromedriver") 
     driver.get(URL)
 
-    csvData =  [] 
+    csvData =  ["v"] #Randomly chosen so that data didn't repeat first row 
 
     try:
         listings_appear = EC.presence_of_element_located((By.ID, "floor-plan-listing"))

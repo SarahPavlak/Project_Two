@@ -20,6 +20,9 @@ if apartment == 'ava-ballston':
 if apartment == 'ava-ballston,avalon-ballston-square':
     os.system('python avalon_ballston_one_bed_one_bath.py')
     os.system('python ava_ballston_one_bed_one_bath.py')
-    os.system('python email_compiled.py') #have to do it in this order so that the email runs after the scripts have been pulling from updated csvs, why can't consolidate this part of code
+    os.system('python email_compiled.py') 
 else:
     pass
+
+
+#makes the process independent of the user input part which is in freestyle so that I can run heroku 
