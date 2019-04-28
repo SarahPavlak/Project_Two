@@ -4,7 +4,7 @@ WELCOME TO MY REPOSITORY!
 Installing packages:
 1. In your terminal, type "pip install -r requirements.txt"
 2. pip install sendgrid
-3. 
+3. pip install requests
 
 Installing your Sendgrid for One Time Notifications:
 1. If not previously held, sign up for a free Sendgrid account (https://signup.sendgrid.com/) and create a key with "full permissions" acces (https://app.sendgrid.com/settings/api_keys) #https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/718d10fa22072a56101c20f82229910feb7cbc20/notes/python/packages/sendgrid.md
@@ -26,3 +26,6 @@ Installing Herko For Recurring Message Notifications:
 Security:
 1. Create a file titled ".env". Within this file, type MY_EMAIL_ADDRESS="your_email_here" and SENDGRID_API_KEY="your_API_key_here" on different lines. Your Sendgrid API Key can be found by following the "Installing your sendgrid for one time notifications #1" instructions above.
 2. Create a file titled ".gitignore". Within the file, type ".env" and "__pycache__/" on different lines
+
+Using this directory:
+1. You must run the freestyle.py file; all other files are supplementary and should work automatically if all goes according to plan!
