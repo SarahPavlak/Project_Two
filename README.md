@@ -31,10 +31,12 @@ Installing Herko For Recurring Message Notifications:
 9. "Navigate to the "Heroku Scheduler" resource from the "Resources" tab, then click to "Add a new Job". When adding the job, choose to execute the "app/send_email.py" script at a scheduled interval (e.g. every 10 minutes), and finally click to "Save" the job."
 #https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/718d10fa22072a56101c20f82229910feb7cbc20/exercises/deploy-script-production.md
 
-
 Security:
 1. Create a file titled ".env". Within this file, type MY_EMAIL_ADDRESS="your_email_here" and SENDGRID_API_KEY="your_API_key_here" on different lines. Your Sendgrid API Key can be found by following the "Installing your sendgrid for one time notifications #1" instructions above.
 2. Create a file titled ".gitignore". Within the file, type ".env" and "__pycache__/" on different lines
+
+Running Tests:
+1. In your terminal, type "pytest"
 
 Using this directory:
 1. You must run the freestyle.py file; all other files are supplementary and should work automatically if all goes according to plan!
