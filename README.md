@@ -7,7 +7,7 @@ Pip
 
 Installation
 Fork this repository under your own control and then clone the resulting repo onto your computer. Then, create a new virutal environment with Anaconda:
-Conda create -n #name_your_environment
+1. Conda create -n #name_your_environment
 2. "Conda activate #your#named#environment
 
 Installing packages:
