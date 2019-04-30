@@ -8,13 +8,13 @@ from selenium.common.exceptions import TimeoutException
 import csv
 
 #reading to see which apartment is selected
-with open("apartment.csv", 'r') as csvfile:
+with open("csv_files/apartment.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         apartment = (row['A'])
         #print(apartment)
 
-with open("/Users/SarahPavlak/Desktop/DFD/csv_files/budget.csv", 'r') as csvfile:
+with open("csv_files/budget.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     
     for row in reader:
