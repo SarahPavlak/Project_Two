@@ -17,7 +17,7 @@ csvfile.close()
 #sending the proper email if its ava-ballston
 if apartment == "ava-ballston":
     applicable_apartments = []
-    with open("ava_apartment.csv", 'r') as csvfile:
+    with open("csv_files/ava_apartment.csv", 'r') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             applicable_apartments.append(dict(row))
@@ -28,7 +28,7 @@ else:
 #sending the proper email if its both apartments
 if apartment == 'ava-ballston,avalon-ballston-square':
     applicable_apartments = []
-    with open("ava_avalon.csv", 'r') as csvfile:
+    with open("csv_files/ava_avalon.csv", 'r') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             applicable_apartments.append(dict(row))
@@ -39,7 +39,7 @@ else:
 #sending the right email if its avalon
 if apartment == "avalon-ballston-square":
     applicable_apartments = []
-    with open("avalon_apartment.csv", 'r') as csvfile:
+    with open("csv_files/avalon_apartment.csv", 'r') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             applicable_apartments.append(dict(row))
