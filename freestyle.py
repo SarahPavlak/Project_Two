@@ -43,7 +43,7 @@ def apartment():
 
     csvData =  ['A']
     csvData.append(apartment_value)
-    with open('apartment.csv', 'w') as csvFile: #budget kept clearing over this so made 2 CSVs
+    with open('csv_files/apartment.csv', 'w') as csvFile: #budget kept clearing over this so made 2 CSVs
         csvFile.truncate()
         writer = csv.writer(csvFile)
         writer.writerows(csvData)
@@ -62,7 +62,7 @@ def budget():
 
     csvData =  ['B']
     csvData.append([bueno])
-    with open("/Users/SarahPavlak/Desktop/DFD/csv_files/budget.csv", 'w') as csvFile: 
+    with open("csv_files/budget.csv", 'w') as csvFile: 
         csvFile.truncate()
         writer = csv.writer(csvFile)
         writer.writerows(csvData)
@@ -82,7 +82,7 @@ def notifications():
 
     csvData =  ['N']
     csvData.append([notification_value])
-    with open('notification.csv', 'w') as csvFile: 
+    with open('csv_files/notification.csv', 'w') as csvFile: 
         csvFile.truncate()
         writer = csv.writer(csvFile)
         writer.writerows(csvData)
