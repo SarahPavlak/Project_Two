@@ -12,7 +12,7 @@ from datetime import timedelta
 import os 
 
 
-with open("/Users/SarahPavlak/Desktop/DFD/csv_files/budget.csv", 'r') as csvfile:
+with open("csv_files/budget.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     
     for row in reader:
