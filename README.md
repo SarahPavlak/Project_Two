@@ -1,9 +1,9 @@
 WELCOME TO MY REPOSITORY!
 
 Prerequisites
-Anaconda 3.7
-Python 3.7
-Pip
+1. Anaconda 3.7
+2. Python 3.7
+3. Pip
 
 Installation:
 1. To begin, please fork this respository and clone the resulting repo onto your computer. Then, create a new virutal environment with Anaconda through inputting the following in your terminal:
