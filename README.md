@@ -1,5 +1,14 @@
 WELCOME TO MY REPOSITORY!
 
+Prerequisites
+Anaconda 3.7
+Python 3.7
+Pip
+
+Installation
+Fork this repository under your own control and then clone the resulting repo onto your computer. Then, create a new virutal environment with Anaconda:
+Conda create -n #name_your_environment
+2. "Conda activate #your#named#environment
 
 Installing packages:
 1. In your terminal, type "pip install -r requirements.txt"
