@@ -6,7 +6,7 @@ Python 3.7
 Pip
 
 Installation
-Fork this repository under your own control and then clone the resulting repo onto your computer. Then, create a new virutal environment with Anaconda:
+To begin, please fork this respository and clone the resulting repo onto your computer. Then, create a new virutal environment with Anaconda:
 1. Conda create -n #name_your_environment
 2. "Conda activate #your#named#environment
 
