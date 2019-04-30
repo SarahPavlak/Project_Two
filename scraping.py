@@ -83,7 +83,7 @@ if apartment == "ava-ballston":
                         with open ('csv_files/ava_apartment.csv') as csvFile:
                             data = list(csv.reader(csvFile))
                             new_data = [a for i, a in enumerate (data) if a not in data [:i]]
-                            with open ('ava_apartment.csv', 'w') as t:
+                            with open ('csv_files/ava_apartment.csv', 'w') as t:
                                 write = csv.writer(t)
                                 write.writerows(new_data) #http://lancerous.com/detail/48853461/48853527 gets rid of duplicates, before was having a long list of four loops
                     
@@ -155,7 +155,7 @@ if apartment == "avalon-ballston-square":
                         with open ('csv_files/avalon_apartment.csv') as csvFile:
                             data = list(csv.reader(csvFile))
                             new_data = [a for i, a in enumerate (data) if a not in data [:i]]
-                            with open ('avalon_apartment.csv', 'w') as t:
+                            with open ('csv_files/avalon_apartment.csv', 'w') as t:
                                 write = csv.writer(t)
                                 write.writerows(new_data) #http://lancerous.com/detail/48853461/48853527 gets rid of duplicates, before was having a long list duplicates
 
