@@ -65,12 +65,13 @@ finally:
                     woo_budget = ("Ava" + "      " + listing_str[:6]+ "         " + move_date +  "         " +  str(p) + "     " + str(one_br_listing))
 
                     csvData.append([woo_budget])
-                    with open('ava_avalon.csv', 'a+') as csvFile:
+                    with open('csv_files/ava_avalon.csv', 'a+') as csvFile:
+                        csvFile.truncate()
                         writer = csv.writer(csvFile)
                         writer.writerows(csvData)
                     csvFile.close()
 
-                    with open ('ava_avalon.csv') as csvFile:
+                    with open ('csv_files/ava_avalon.csv') as csvFile:
                         data = list(csv.reader(csvFile))
                         new_data = [a for i, a in enumerate (data) if a not in data [:i]]
                         with open ('ava_avalon.csv', 'w') as t:
