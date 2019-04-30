@@ -1,12 +1,12 @@
 import csv 
 import os
 
-with open("apartment.csv", 'r') as csvfile:
+with open("csv_files/apartment.csv", 'r') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             apartment = (row['A'])
 
-with open("notification.csv", 'r') as csvfile:
+with open("csv_files/notification.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         notification = (row['N'])
