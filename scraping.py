@@ -74,12 +74,13 @@ if apartment == "ava-ballston":
                         woo_budget = ("Ava" + "      " + listing_str[:6]+ "         " + move_date +  "         " +  str(p) + "     " + str(one_br_listing))
 
                         csvData.append([woo_budget])
-                        with open('ava_apartment.csv', 'a+') as csvFile:
+                        with open('csv_files/ava_apartment.csv', 'a+') as csvFile:
+                            csvFile.truncate()
                             writer = csv.writer(csvFile)
                             writer.writerows(csvData)
                         csvFile.close()
 
-                        with open ('ava_apartment.csv') as csvFile:
+                        with open ('csv_files/ava_apartment.csv') as csvFile:
                             data = list(csv.reader(csvFile))
                             new_data = [a for i, a in enumerate (data) if a not in data [:i]]
                             with open ('ava_apartment.csv', 'w') as t:
@@ -145,12 +146,13 @@ if apartment == "avalon-ballston-square":
                     
 
                         csvData.append([woo_budget]) #https://www.youtube.com/watch?v=XynRRjG_k4I
-                        with open('avalon_apartment.csv', 'a+') as csvFile:
+                        with open('csv_files/avalon_apartment.csv', 'a+') as csvFile:
+                            csvFile.truncate()
                             writer = csv.writer(csvFile)
                             writer.writerows(csvData)
                         csvFile.close()
 
-                        with open ('avalon_apartment.csv') as csvFile:
+                        with open ('csv_files/avalon_apartment.csv') as csvFile:
                             data = list(csv.reader(csvFile))
                             new_data = [a for i, a in enumerate (data) if a not in data [:i]]
                             with open ('avalon_apartment.csv', 'w') as t:
