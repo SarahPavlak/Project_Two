@@ -8,7 +8,7 @@ import requests
 #compiled emails 
 
 #reading to see which apartment is selected
-with open("/Users/SarahPavlak/Desktop/DFD/csv_files/apartment.csv", 'r') as csvfile:
+with open("csv_files/apartment.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         apartment = (row['A'])
