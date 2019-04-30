@@ -62,7 +62,7 @@ def budget():
 
     csvData =  ['B']
     csvData.append([bueno])
-    with open('budget.csv', 'w') as csvFile: 
+    with open("/Users/SarahPavlak/Desktop/DFD/csv_files/budget.csv", 'w') as csvFile: 
         csvFile.truncate()
         writer = csv.writer(csvFile)
         writer.writerows(csvData)
