@@ -8,7 +8,7 @@ from selenium.common.exceptions import TimeoutException
 import csv
 
 
-with open("budget.csv", 'r') as csvfile:
+with open("csv_files/budget.csv", 'r') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         budget = (row['B'])
