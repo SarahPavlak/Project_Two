@@ -40,7 +40,7 @@ Installing Heroku For Recurring Message Notifications:
 6. In your terminal, type "git push heroku master" *Post due after: Note: if it doesnt run, you may to go into heroku deploy and connect your git repository under the github section
 7. Optional: in your terminal, you can type "heroku run "python email_compiled.py" -a your_app_name" to see if it is properly working.
 8. Log into heroku from your web browser. Navigate to the "Resources" tab  your application's Heroku dashboard, search for an add-on called "Heroku Scheduler" and provision the server with a free plan. 
-9. "Navigate to the "Heroku Scheduler" resource from the "Resources" tab, then click to "Add a new Job". When adding the job, choose to execute the "app/send_email.py" script at a scheduled interval (e.g. every 10 minutes), and finally click to "Save" the job."
+9. "Navigate to the "Heroku Scheduler" resource from the "Resources" tab, then click to "Add a new Job". When adding the job, choose to execute the "pyhton email_compiled.py" (post due, fixed tweak to match previous) script at a scheduled interval (e.g. every 10 minutes), and finally click to "Save" the job."
 #https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/718d10fa22072a56101c20f82229910feb7cbc20/exercises/deploy-script-production.md
 
 Security:
