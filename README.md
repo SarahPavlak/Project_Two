@@ -47,4 +47,5 @@ Running Tests:
 1. In your terminal, type "pytest". If it runs correctly, you may then proceed to run the application.
 
 Using this directory:
-1. You must run the freestyle.py file; all other files are supplementary and should work automatically if all goes according to plan!
+1. *Post due date adjustment: If there, please erase the CSV files titled "Ava_Apartment", "Avalon_Apartment" and "Ava_Avalon"
+2. You must run the freestyle.py file; all other files are supplementary and should work automatically if all goes according to plan!
