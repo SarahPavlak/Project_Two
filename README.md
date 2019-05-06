@@ -26,6 +26,10 @@ Website Scraping:
 Installing your Sendgrid for One Time Notifications:
 1. If not previously held, sign up for a free Sendgrid account (https://signup.sendgrid.com/) and create a key with "full permissions" access (https://app.sendgrid.com/settings/api_keys) #https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/718d10fa22072a56101c20f82229910feb7cbc20/notes/python/packages/sendgrid.md
 
+Connecting to Github *Post official due date
+1. git init
+2. git remote add upstream: #insert_http_address
+
 Installing Heroku For Recurring Message Notifications:
 1. Ensure that the Heroku application is installed (https://devcenter.heroku.com/categories/command-line)
 2. If you do not previously have one, register for a new Heroku account https://signup.heroku.com/3. I
