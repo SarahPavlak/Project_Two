@@ -36,7 +36,7 @@ Installing Heroku For Recurring Message Notifications:
 3. In your terminal, type "heroku login"
 4. In your terminal, type "heroku create my-app-name" and change my-app-name to your desired application's name 
 5. In your terminal, type "heroku git:remote -a my-app-name" and change my-app-name to your desired application's name  
-6. Configure your email and api key email; in your terminal type "heroku config:set MY_SECRET_MESSAGE="abc123" -a my-app-name" and adjust the MY_SECRET_MESSAGE and "abc123" accordingly
+6. Configure your email and api key email; in your terminal type "heroku config:set MY_SECRET_MESSAGE="abc123" -a my-app-name" and adjust the MY_SECRET_MESSAGE and "abc123" to match the env file *Env file part post due
 6. In your terminal, type "git push heroku master"
 7. Optional: in your terminal, you can type "heroku run "python email_compiled.py" -a your_app_name" to see if it is properly working.
 8. Log into heroku from your web browser. Navigate to the "Resources" tab  your application's Heroku dashboard, search for an add-on called "Heroku Scheduler" and provision the server with a free plan. 
